@@ -1,0 +1,108 @@
+<!doctype HTML>
+<html>
+    <head>
+        <title> Title </title>
+        <style>
+            img{
+                width:200px
+            }
+            body{
+                background-color: lightskyblue;
+            }
+            p {outline-color:red;} /*Makes the outline color red*/
+            p.double {outline-style: double;} /*Makes a double outline(a box in a box)*/
+            p{
+                width:300px
+            }
+            
+        </style>
+
+        <script>
+            var pr1=2, Wprice1=1;
+            var pr2=2, Wprice2=1;
+            var pr3=2, Wprice3=1;
+            function initPrices(){
+                document.getElementById("span1").innerHTML= "Price: $"+pr1;
+                document.getElementById("span2").innerHTML= "Price: $"+pr2;
+                document.getElementById("span3").innerHTML= "Price: $"+pr3;
+            }
+            function ProcessOrder(){
+                var q1= parseInt(document.getElementById("q1").value);
+                var q2= parseInt(document.getElementById("q2").value);
+                var q3= parseInt(document.getElementById("q3").value);
+                var Customer_Subtotal= (pr1*q1)+(pr2*q2)+(pr3*q3);
+                var Company_Subtotal= (Wprice1*q1)+(Wprice2*q2)+(Wprice3*q3);
+                var profit= Customer_Subtotal-Company_Subtotal;
+                var TiS= q1+q2+q3;
+                var taxRate= .0875;
+                var tax= Customer_Subtotal*taxRate;
+                if (Customer_Subtotal<100){
+                    var shipping=25;
+                }else if (Customer_Subtotal>100 && Customer_Subtotal<=200){
+                    var shipping=10;
+                }else{
+                    var shipping=0;
+                }
+                var total= Customer_Subtotal+shipping;
+                var op= document.getElementById("output");
+                var op2= document.getElementById("output2");
+                var build1="";
+                build1+="<br>";
+                build1+="CUSTOMER INFO";
+                build1+="<br>-----------------------------------<br>";
+                build1+="Subtotal: $"+Customer_Subtotal;
+                build1+="<br>";
+                build1+="Tax: $"+tax;
+                build1+="<br>";
+                build1+="Shipping: $"+shipping;
+                build1+="<br>";
+                build1+="Total: $"+total;
+                var build="";
+                build+="<br>";
+                build+="COMPANY INFO";
+                build+="<br>------------------------------------<br>";
+                build+="Customer Subtotal: $"+Customer_Subtotal;
+                build+="<br>";
+                build+="Company Subtotal: $"+Company_Subtotal;
+                build+="<br>";
+                build+="Profit: $"+profit;
+                build+="<br>";
+                build+="Total Items Sold: "+TiS;
+                op.innerHTML=build1;
+                op2.innerHTML=build;
+            }
+        </script>
+
+    </head>
+
+    <body onload="initPrices()">
+        <h1> Mr.Dai's Candy Shop </h1>
+        <!--Item 1-->
+        <div>
+            <img src="twixbar.png"><br>
+            <p class="double">Twix Cookie Bars filled with half cookie<br> 
+               half caramel coated with chocolate</p> <br>
+            <span id="span1"></span>
+            <input type="text" id="q1" placeholder="Enter # of Quantities">
+        </div>
+        <!--Item 2-->
+        <div>
+            <img src="hershey_candc.jpg"><br>
+            <p class="double">Hershey Cookies and Cream is a white<br>
+               chocolate bar containing cookie bits</p><br>
+            <span id="span2"></span>
+            <input type="text" id="q2" placeholder="Enter # of Quantities">
+        </div>
+        <!--Item 3-->
+         <div>
+            <img src="Nestle_Crunch.jpg"><br>
+            <p class="double">Nestle Crunch is a chocolate bar made of milk<br> 
+               chcoclate with crisped rice mixed in</p>
+            <span id="span3"></span>
+            <input type="text" id="q3" placeholder="Enter # of Quantities">
+         </div>
+        <div id="output"></div>
+        <div id="output2"></div>
+        <button onclick="ProcessOrder()"> Process Order </button> 
+    </body>
+</html>
